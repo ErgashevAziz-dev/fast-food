@@ -1,0 +1,9 @@
+# API_TOKEN = "8550921838:AAGN_Rtlt6YzENVcd_acNSD59F7KGjId0qA"
+# ADMIN_GROUP_ID = -5079126065  # Telegram group id, adminlar uchun
+
+TOKEN = '8231498998:AAEGiQ7W-ZVR13KLzkEOXG0umPdTOmA_xqM'
+ADMIN_GROUP_ID = -1003832599874  # Adminlar guruhining ID sini yozing
+API_URL = "http://127.0.0.1:8000/api/categories/"  # Django REST API
+
+TOKEN = '7930486457:AAFtDsnbE8Bq1Jk03d1kgnDTVrL7fbmJdxg'
+ADMIN_GROUP_ID = -1003832599874  #
