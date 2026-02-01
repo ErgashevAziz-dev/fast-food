@@ -169,15 +169,15 @@ def start(update: Update, context: CallbackContext):
     else:
         USERS[user_id]["step"] = "phone"  # qayta start bosilganda
 
-     update.message.reply_text(
+    update.message.reply_text(
         "Miglavash | Delivery botiga xush kelibsiz! 🍽️"
     )
 
-    
     update.message.reply_text(
         "Iltimos, telefon raqamingizni yuboring:",
         reply_markup=start_keyboard()
     )
+
 def contact_handler(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     if USERS[user_id]["step"] != "phone":
