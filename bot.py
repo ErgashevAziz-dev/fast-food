@@ -212,7 +212,7 @@ def callback(update: Update, context: CallbackContext):
 
         # Mazzali so'zini qo'shamiz
 
-        header = f"MAZZALI {cat.uper()}LAR \n\n" 
+        header = f"MAZZALI {cat.upper()}LAR \n\n" 
 
         q.edit_message_text(
 
