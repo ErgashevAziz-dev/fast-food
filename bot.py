@@ -51,17 +51,20 @@ ORDERS = {}  # order_id -> order data
 # ================== KEYBOARDS ==================
 def main_menu():
     kb = [
+        # 1-qator: Buyurtma berish
         [InlineKeyboardButton("🍔 BUYURTMA BERISH 🍟", callback_data="open_categories")],
 
+        # 2-qator: Buyurtmalarim va Biz haqimizda yonma-yon
         [
-            InlineKeyboardButton("ℹ️ Biz haqimizda", callback_data="about")
             InlineKeyboardButton("🛒 BUYURTMALARIM", callback_data="cart"),
-            
+            InlineKeyboardButton("ℹ️ Biz haqimizda", callback_data="about")
         ],
 
+        # 3-qator: Bog‘lanish
         [InlineKeyboardButton("📞 Bog‘lanish", callback_data="contact_us")]
     ]
     return InlineKeyboardMarkup(kb)
+
 
 
 
