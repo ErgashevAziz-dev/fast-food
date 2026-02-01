@@ -401,9 +401,8 @@ def callback(update: Update, context: CallbackContext):
         q.edit_message_text(
             text=(
                 "📞 Bog‘lanish:\n\n"
-                "Telefon: +998 90 123 45 67\n"
+                "Telefon: +998 98 100-69-90\n"
                 "Telegram: @ergashev_dev\n"
-                "Email: info@miglavash.uz"
             ),
             reply_markup=contact_menu()
         )
