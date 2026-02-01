@@ -387,15 +387,15 @@ def callback(update: Update, context: CallbackContext):
         context.bot.send_message(chat_id=user_id, text="Quyidagilardan birini tanlang 👇", reply_markup=main_menu())
 
     elif data == "about":
-    q.edit_message_text(
-        text=(
-            "🍔 *Miglavash | Delivery* haqida:\n\n"
-            "Bizning fast-food restoranimiz sizga tez va mazali taomlarni yetkazib beradi.\n"
-            "Har doim sifat va tezlikni birinchi o‘ringa qo‘yganmiz!"
-        ),
-        reply_markup=about_menu(),
-        parse_mode="Markdown"
-    )
+        q.edit_message_text(
+            text=(
+                "🍔 *Miglavash | Delivery* haqida:\n\n"
+                "Bizning fast-food restoranimiz sizga tez va mazali taomlarni yetkazib beradi.\n"
+                "Har doim sifat va tezlikni birinchi o‘ringa qo‘yganmiz!"
+            ),
+            reply_markup=about_menu(),
+            parse_mode="Markdown"
+        )
 
     elif data == "contact_us":
         q.edit_message_text(
