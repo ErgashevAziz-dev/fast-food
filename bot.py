@@ -56,8 +56,9 @@ def main_menu():
 
         # 2-qator: Buyurtmalarim va Biz haqimizda yonma-yon
         [
-            InlineKeyboardButton("🛒 BUYURTMALARIM", callback_data="cart"),
-            InlineKeyboardButton("ℹ️ Biz haqimizda", callback_data="about")
+            
+            InlineKeyboardButton("ℹ️ Biz haqimizda", callback_data="about"),
+            InlineKeyboardButton("🛒 Buyurtmalarim", callback_data="cart"),
         ],
 
         # 3-qator: Bog‘lanish
@@ -364,13 +365,12 @@ def callback(update: Update, context: CallbackContext):
         username = f"@{user_chat.username}" if user_chat.username else "Username yo'q"
     
         text = (
-            f"🆕 *YANGI BUYURTMA*\n"
+            f"🆕 YANGI BUYURTMA\n\n"
             # f"🆔 *ID:* `{order_id}`\n"
-            f"👤 *Mijoz:* {name}\n"
-            f"🔤 *Username:* {username}\n"
-            f"📞 *Telefon:* {USERS[user_id]['phone']}\n"
-            f"🏠 *Manzil:* {USERS[user_id]['address']}\n\n"
-            f"*Buyurtma tarkibi:* \n"
+            f"👤 Mijoz: {name}\n"
+            f"🔤 Username: {username}\n"
+            f"📞 Telefon: {USERS[user_id]['phone']}\n"
+            f"🏠 Manzil: {USERS[user_id]['address']}\n\n"
         )
         for i in cart.values():
             item_total = int(i["price"]) * i["qty"]
@@ -402,7 +402,7 @@ def callback(update: Update, context: CallbackContext):
             text=(
                 "📞 Bog‘lanish:\n\n"
                 "Telefon: +998 90 123 45 67\n"
-                "Telegram: @miglavash_support\n"
+                "Telegram: @ergashev_dev\n"
                 "Email: info@miglavash.uz"
             ),
             reply_markup=contact_menu()
