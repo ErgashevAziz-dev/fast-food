@@ -359,7 +359,7 @@ def callback(update: Update, context: CallbackContext):
 
         # Adminga
         # text = f"🆕 BUYURTMA\n🆔 {order_id}\n📞 {USERS[user_id]['phone']}\n🏠 {USERS[user_id]['address']}\n\n"
-         user_chat = context.bot.get_chat(user_id)
+        user_chat = context.bot.get_chat(user_id)
         name = user_chat.first_name or "Noma'lum"
         username = f"@{user_chat.username}" if user_chat.username else "Username yo'q"
     
