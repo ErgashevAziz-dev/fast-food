@@ -51,10 +51,18 @@ ORDERS = {}  # order_id -> order data
 # ================== KEYBOARDS ==================
 def main_menu():
     kb = [
-        [InlineKeyboardButton("🍔  BUYURTMA BERISH  🍟", callback_data="open_categories")],
-        [InlineKeyboardButton("🛒  BUYURTMALARIM  ", callback_data="cart")]
+        [InlineKeyboardButton("🍔 BUYURTMA BERISH 🍟", callback_data="open_categories")],
+
+        [
+            InlineKeyboardButton("ℹ️ Biz haqimizda", callback_data="about")
+            InlineKeyboardButton("🛒 BUYURTMALARIM", callback_data="cart"),
+            
+        ],
+
+        [InlineKeyboardButton("📞 Bog‘lanish", callback_data="contact_us")]
     ]
     return InlineKeyboardMarkup(kb)
+
 
 
 def categories_menu():
@@ -157,8 +165,14 @@ def start(update: Update, context: CallbackContext):
         USERS[user_id] = {"phone": None, "location": None, "address": None, "cart": {}, "step": "phone"}
     else:
         USERS[user_id]["step"] = "phone"  # qayta start bosilganda
+
+     update.message.reply_text(
+        "Miglavash | Delivery botiga xush kelibsiz! 🍽️"
+    )
+
+    
     update.message.reply_text(
-        "Assalomu alaykum! Telefon raqamingizni yuboring:",
+        "Iltimos, telefon raqamingizni yuboring:",
         reply_markup=start_keyboard()
     )
 def contact_handler(update: Update, context: CallbackContext):
@@ -168,7 +182,7 @@ def contact_handler(update: Update, context: CallbackContext):
     USERS[user_id]["phone"] = update.message.contact.phone_number
     USERS[user_id]["step"] = "location"
     update.message.reply_text(
-        "Lokatsiyani yuboring:",
+        "Iltimos, lokatsiyani yuboring:",
         reply_markup=location_keyboard()
     )
 
@@ -180,7 +194,7 @@ def location_handler(update: Update, context: CallbackContext):
     USERS[user_id]["location"] = (loc.latitude, loc.longitude)
     USERS[user_id]["step"] = "address"
     update.message.reply_text(
-        "Manzil izohini yozing:\nMasalan: 12-uy, 3-podyezd, 4-qavat",
+        "Manzilni to'liq yozing:\n\nMasalan: 12-uy, 3-podyezd, 4-qavat",
         reply_markup=ReplyKeyboardRemove()
     )
 
@@ -194,6 +208,19 @@ def address_handler(update: Update, context: CallbackContext):
         "Quyidagilardan birini tanlang 👇",
         reply_markup=main_menu()
     )
+
+def about_menu():
+    kb = [
+        [InlineKeyboardButton("⬅️ Orqaga", callback_data="menu")]
+    ]
+    return InlineKeyboardMarkup(kb)
+
+def contact_menu():
+    kb = [
+        [InlineKeyboardButton("⬅️ Orqaga", callback_data="menu")]
+    ]
+    return InlineKeyboardMarkup(kb)
+
 
 # ================== CALLBACK ==================
 def callback(update: Update, context: CallbackContext):
@@ -324,11 +351,24 @@ def callback(update: Update, context: CallbackContext):
 
         # Foydalanuvchiga xabar
         context.bot.send_message(chat_id=user_id,
-                                 text="✅ Buyurtma qabul qilindi!\nOperatorlarimiz hozir siz bilan bog‘lanishadi.")
+                                 text="✅ Buyurtma qabul qilindi!\n\nOperatorlarimiz hozir siz bilan bog‘lanishadi.")
         context.bot.send_message(chat_id=user_id, text="Quyidagilardan birini tanlang 👇", reply_markup=main_menu())
 
         # Adminga
-        text = f"🆕 BUYURTMA\n🆔 {order_id}\n📞 {USERS[user_id]['phone']}\n🏠 {USERS[user_id]['address']}\n\n"
+        # text = f"🆕 BUYURTMA\n🆔 {order_id}\n📞 {USERS[user_id]['phone']}\n🏠 {USERS[user_id]['address']}\n\n"
+         user_chat = context.bot.get_chat(user_id)
+        name = user_chat.first_name or "Noma'lum"
+        username = f"@{user_chat.username}" if user_chat.username else "Username yo'q"
+    
+        text = (
+            f"🆕 *YANGI BUYURTMA*\n"
+            # f"🆔 *ID:* `{order_id}`\n"
+            f"👤 *Mijoz:* {name}\n"
+            f"🔤 *Username:* {username}\n"
+            f"📞 *Telefon:* {USERS[user_id]['phone']}\n"
+            f"🏠 *Manzil:* {USERS[user_id]['address']}\n\n"
+            f"*Buyurtma tarkibi:* \n"
+        )
         for i in cart.values():
             item_total = int(i["price"]) * i["qty"]
             item_display = f"{item_total:,}".replace(",", ".")
@@ -342,6 +382,28 @@ def callback(update: Update, context: CallbackContext):
     elif data == "cancel_order":
         q.edit_message_text("❌ Buyurtma bekor qilindi")
         context.bot.send_message(chat_id=user_id, text="Quyidagilardan birini tanlang 👇", reply_markup=main_menu())
+
+    elif data == "about":
+    q.edit_message_text(
+        text=(
+            "🍔 *Miglavash | Delivery* haqida:\n\n"
+            "Bizning fast-food restoranimiz sizga tez va mazali taomlarni yetkazib beradi.\n"
+            "Har doim sifat va tezlikni birinchi o‘ringa qo‘yganmiz!"
+        ),
+        reply_markup=about_menu(),
+        parse_mode="Markdown"
+    )
+
+    elif data == "contact_us":
+        q.edit_message_text(
+            text=(
+                "📞 Bog‘lanish:\n\n"
+                "Telefon: +998 90 123 45 67\n"
+                "Telegram: @miglavash_support\n"
+                "Email: info@miglavash.uz"
+            ),
+            reply_markup=contact_menu()
+        )
 
 # ================== MAIN ==================
 def main():
