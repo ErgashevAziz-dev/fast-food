@@ -18,7 +18,7 @@ from telegram.ext import (
 )
 
 # ================== SOZLAMALAR ==================
-TOKEN = '7930486457:AAEeEoJcBYPaLgnkgQdO2gT3Fy-yAWgtlks'
+TOKEN = '8476294860:AAEvCdHlERD-Vg4C-IJwoCnE_52Iwy7sUQ4'
 ADMIN_GROUP_ID = -1003832599874  ## Adminlar guruhining ID sini yozing
 
 logging.basicConfig(level=logging.INFO)
