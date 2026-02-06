@@ -270,7 +270,10 @@ def callback(update: Update, context: CallbackContext):
         elif cart[key]["qty"] < 5:
             cart[key]["qty"] += 1
 
-        q.answer(f"{item['name']} savatchaga qo‘shildi ✅ x{cart[key]['qty']}")
+        q.answer(
+            text=f"{item['name']} savatchaga qo‘shildi ✅\nSoni: {cart[key]['qty']}",
+            show_alert=True
+        )
 
     elif data == "cart":
         cart = USERS[user_id]["cart"]
