@@ -427,4 +427,3 @@ if __name__ == "__main__":
 
 
 
-menga agar menyuni ustiga bossam alert chiqmayabdi narsangiz savatchaga qo'shildi deb nima uchun ??
