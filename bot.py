@@ -45,16 +45,6 @@ def get_categories():
         return {}
 
 USERS = {}   # user_id -> user data
-
-def get_user(user_id):
-    if user_id not in USERS:
-        USERS[user_id] = {
-            "cart": {},
-            "phone": None,
-            "location": None
-        }
-    return USERS[user_id]
-
 ORDERS = {}  # order_id -> order data
 
 
@@ -273,28 +263,17 @@ def callback(update: Update, context: CallbackContext):
             return
         item = items[idx]
 
-        user_id = q.from_user.id
-        user = get_user(user_id)
-        cart = user["cart"]
-
+        cart = USERS[user_id]["cart"]
         key = f"{cat}_{idx}"
         if key not in cart:
             cart[key] = {"name": item["name"], "price": int(item["price"]), "qty": 1}
         elif cart[key]["qty"] < 5:
             cart[key]["qty"] += 1
 
-        context.bot.answer_callback_query(
-            callback_query_id=q.id,
-            text=f"✅ {item['name']} savatchaga qo‘shildi\nSoni: {cart[key]['qty']}",
-            show_alert=True,
-            cache_time=1
-        )
+        q.answer(f"{item['name']} savatchaga qo‘shildi ✅ x{cart[key]['qty']}")
 
     elif data == "cart":
-        user_id = q.from_user.id
-        user = get_user(user_id)
-        cart = user["cart"]
-
+        cart = USERS[user_id]["cart"]
         if not cart:
             q.answer("Siz hali hanuz hech narsa buyurtma bermagansiz")
             q.edit_message_text("Siz hali hanuz hech narsa buyurtma bermagansiz", reply_markup=main_menu())
@@ -348,10 +327,7 @@ def callback(update: Update, context: CallbackContext):
         )
 
     elif data == "order":
-        user_id = q.from_user.id
-        user = get_user(user_id)
-        cart = user["cart"]
-
+        cart = USERS[user_id]["cart"]
         if not cart:
             q.answer("Siz hali hanuz hech narsa buyurtma bermagansiz")
             return
@@ -449,3 +425,6 @@ def main():
 if __name__ == "__main__":
     main()
 
+
+
+menga agar menyuni ustiga bossam alert chiqmayabdi narsangiz savatchaga qo'shildi deb nima uchun ??
