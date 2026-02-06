@@ -283,7 +283,7 @@ def callback(update: Update, context: CallbackContext):
         elif cart[key]["qty"] < 5:
             cart[key]["qty"] += 1
 
-       context.bot.answer_callback_query(
+        context.bot.answer_callback_query(
             callback_query_id=q.id,
             text=f"✅ {item['name']} savatchaga qo‘shildi\nSoni: {cart[key]['qty']}",
             show_alert=True,
